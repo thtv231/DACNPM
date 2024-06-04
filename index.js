@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const router = require("./router/client/index.router.js")
 const database = require("./config/database.config.js")
 const routerAdmin = require("./router/admin/index.router.js")
@@ -25,6 +26,12 @@ app.use(cookieParser("ABCXYZ"))
 app.use(session({cookie:{maxAge:60000}}))
 app.use(flash())
 // flash end
+
+// tinymce
+
+app.use('/tinymce',
+ express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// tinymce end
 
 const systermConfig = require("./config/systerm")
 app.locals.prefixAdmin = systermConfig.prefixAdmin
