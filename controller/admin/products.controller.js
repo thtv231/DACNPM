@@ -50,13 +50,22 @@ module.exports.prodcuts = async (req, res) => {
 
 
 
+    //sort
+    let sort = {}
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue
+    }else{
 
+        sort.position = "desc"
+    }
+
+    //sort end
     
     
 
 
     const products =  await Products.find(find)
-        .sort({position:"desc"})
+        .sort(sort)
         .limit(objPagination.limitItems)
         .skip(objPagination.skip)
    
