@@ -1,4 +1,4 @@
-const { products } = require("../../../demo/controller/client/products.controller")
+
 const Products = require("../../model/products.model")
 
 module.exports.prodcuts = async (req, res) => {
