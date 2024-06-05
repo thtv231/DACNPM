@@ -10,7 +10,7 @@ const controller = require("../../controller/admin/products.controller.js")
 const validate = require("../../validates/admin/products.validate.js")
 
 
-// Configuration
+//Configuration
 cloudinary.config({ 
     cloud_name: "dbrwioo7f", 
     api_key: "829754235996924", 

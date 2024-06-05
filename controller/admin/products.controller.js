@@ -270,7 +270,7 @@ module.exports.detail =async  (req, res) => {
     
         // find tìm nhiều ->[], findOne ->obj
         const product = await Products.findOne(find)
-        console.log(product)
+        //console.log(product)
         
         res.render("admin/pages/products/detail",{
             pageTitle: product.title,

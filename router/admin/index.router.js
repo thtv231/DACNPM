@@ -1,10 +1,13 @@
 const dashboardRouter = require("./dashboard.router.js")
 const prodcutsRouter = require("./products.router.js")
 const systermConfig = require("../../config/systerm.js")
+const productCategory = require("./products-category.router.js")
+
 module.exports = (app)=>{
     const PATH_ADMIN = systermConfig.prefixAdmin
     
     app.use(PATH_ADMIN+"/dashboard", dashboardRouter)
     
     app.use(PATH_ADMIN+"/products",prodcutsRouter)
+    app.use(PATH_ADMIN+"/products-category",productCategory)
 }
