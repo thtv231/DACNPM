@@ -9,7 +9,7 @@ mixin table-tree(items,level=1)
                     name = "id"
                     value = item.id
                 ) 
-            td #{index+1}
+            td #{item.count}
             td
                 img(
                     src=item.thumbnail
