@@ -1,5 +1,6 @@
 extends ../../layout/default.pug 
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 block main 
     +alert-error(3000)
     +alert(3000)
@@ -21,14 +22,22 @@ block main
                 required
             )
             div(class = "form-group")
-            label(for="parent-id") Danh mục cha
-            input(
-                type="text"
-                class="form-control"
-                id="parent-id"
-                name="parent-id"
-                
-            )
+                //label(for="parent_id") Danh mục cha
+                //- input(
+                //-     type="text"
+                //-     class="form-control"
+                //-     id="parent_id"
+                //-     name="parent_id"
+                    
+                //- )
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                )
+                    option(value="") --Chọn danh mục cha--
+                    if(records)
+                        +select-tree(records) 
 
 
         div(class = "form-group")
@@ -104,4 +113,4 @@ block main
                 class="btn btn-primary"
             )   Tạo mới
 
-    script(src="/admin/js/products.js") 
+    
