@@ -1,13 +1,14 @@
 extends ../../layout/default.pug 
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 block main 
     +alert-error(3000)
     +alert(3000)
     h1(class = "mb-4") #{pageTitle}
 
     form(
-        action= `${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
-        id="form-edit-products"
+        action= `${prefixAdmin}/products-category/edit/${record.id}?_method=PATCH`
+        
         method="POST"
         enctype = 'multipart/form-data'
     )
@@ -19,8 +20,26 @@ block main
                 id="title"
                 name="title"
                 required
-                value = product.title
+                value = record.title
             )
+            div(class = "form-group")
+                //label(for="parent_id") Danh mục cha
+                //- input(
+                //-     type="text"
+                //-     class="form-control"
+                //-     id="parent_id"
+                //-     name="parent_id"
+                    
+                //- )
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                )
+                    option(value="") --Chọn danh mục cha--
+                    if(records)
+                        +select-tree(records,1,record.parent_id) 
+
 
         div(class = "form-group")
             label(for="desc") Mô tả
@@ -30,40 +49,8 @@ block main
                 id="desc"
                 name="description"
                 row="S"
-            ) #{product.description}
+            ) #{record.description}
 
-        div(class = "form-group")
-            label(for="price") Giá
-            input(
-                type="number"
-                name = "price"
-                class="form-control"
-                id="price"
-                value=product.price
-                min="0"
-            )
-
-        div(class = "form-group")
-            label(for="discount") Giảm giá
-            input(
-                type="number"
-                class="form-control"
-                id="discount"
-                name="discountPercentage"
-                value=product.discountPercentage
-                min="0"
-            )
-
-        div(class = "form-group")
-            label(for="stock") Số lượng
-            input(
-                type="number"
-                class="form-control"
-                id="stock"
-                name="stock"
-                value=product.stock
-                min="0"
-            )
 
         div(
             class = "form-group"
@@ -77,13 +64,13 @@ block main
                 name="thumbnail"
                 accept="image/*"
                 upload-image-input
-            ) 
+            )
             br
             img(
-                src=product.thumbnail
+                src=record.thumbnail
                 class="image-preview"
                 upload-image-preview
-            ) 
+            )
             br
             a(
                 class="btn"
@@ -100,8 +87,8 @@ block main
                 name="position"
                 placeholder = "Tự động tăng"
                 min="1"
-                value = product.position
-            ) 
+                value = record.position
+            )
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"
@@ -109,7 +96,6 @@ block main
                 id="statusInActive"
                 name="status"
                 value="active"
-                checked = (record.status == "active"? true:false)
             ) 
             label(for="statusInActive" class = "form-check-label") Hoạt động
         div(class="form-group form-check form-check-inline")
@@ -119,8 +105,6 @@ block main
                 id="statusInActive"
                 name="status"
                 value="inactive"
-                checked = (record.status == "inactive"? true:false)
-
             ) 
             label(for="statusInActive" class = "form-check-label") Dừng hoạt động
         
@@ -129,6 +113,6 @@ block main
             button(
                 type="submit"
                 class="btn btn-primary"
-            )   Cập nhật
+            )   Chỉnh sửa
 
-    script(src="/admin/js/products.js") 
+    
