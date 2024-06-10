@@ -8,6 +8,7 @@ const productsCategorySchema = new mongoose.Schema({
         type:String,
         default:""
     },
+   
     thumbnail : String,
     status : String,
     position: Number,

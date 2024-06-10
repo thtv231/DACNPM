@@ -1,8 +1,10 @@
 const Products = require("../../model/products.model.js")
+const ProductsCategory = require("../../model/products-category.model.js")
 const filterStatusHelper = require("../../helpers/filterStatus.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
 const systermConfig = require("../../config/systerm.js")
+const createTree = require("../../helpers/createTree.js")
 module.exports.prodcuts = async (req, res) => {
     
     const filterStatus = filterStatusHelper(req.query)
@@ -165,11 +167,20 @@ module.exports.deleteItem = async (req,res)=>{
 
 module.exports.create = async (req, res) => {
     
+    const find = {
+        deleted:false,
+       
+    }
+
+    // find tìm nhiều ->[], findOne ->obj
     
+    const category = await ProductsCategory.find(find)
+    const categorys = createTree.tree(category)
     
     
     res.render("admin/pages/products/create",{
-        pageTitle: "Tạo sản phẩm mới"
+        pageTitle: "Tạo sản phẩm mới",
+        category:categorys
 
     })
 }
