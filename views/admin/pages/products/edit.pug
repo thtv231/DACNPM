@@ -1,5 +1,6 @@
 extends ../../layout/default.pug 
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 block main 
     +alert-error(3000)
     +alert(3000)
@@ -21,6 +22,18 @@ block main
                 required
                 value = product.title
             )
+        div(class = "form-group")
+
+            select(
+                name="products_category_id"
+                id="products_category_id"
+                class="form-control"
+            )
+                option(value="") --Chọn danh mục cha--
+                if(category)
+                     
+                    +select-tree(category,1,product.products_category_id) 
+                        
 
         div(class = "form-group")
             label(for="desc") Mô tả
@@ -109,7 +122,7 @@ block main
                 id="statusInActive"
                 name="status"
                 value="active"
-                checked = (record.status == "active"? true:false)
+                checked = (product.status == "active"? true:false)
             ) 
             label(for="statusInActive" class = "form-check-label") Hoạt động
         div(class="form-group form-check form-check-inline")
@@ -119,7 +132,7 @@ block main
                 id="statusInActive"
                 name="status"
                 value="inactive"
-                checked = (record.status == "inactive"? true:false)
+                checked = (product.status == "inactive"? true:false)
 
             ) 
             label(for="statusInActive" class = "form-check-label") Dừng hoạt động

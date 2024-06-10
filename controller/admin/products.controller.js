@@ -230,11 +230,13 @@ module.exports.edit =async  (req, res) => {
     
         // find tìm nhiều ->[], findOne ->obj
         const product = await Products.findOne(find)
-        
+        const category = await ProductsCategory.find({deleted:false})
+        const categorys = createTree.tree(category)
         
         res.render("admin/pages/products/edit",{
             pageTitle: "Chỉnh sửa sản phẩm",
-            product:product
+            product:product,
+            category: categorys
     
         })
         
