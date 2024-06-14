@@ -1,0 +1,75 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert(3000)
+    h1(class="mb-4") #{pageTitle}
+    if(records)
+        div(data-record = records)
+        .card.mb-3 
+            
+            .card-body 
+                .row 
+                    .col-8 
+                    .col-4.text-right 
+                        div(clas="text-right")
+                            button(
+                                type="submit"
+                                class="btn btn-primary mb-3"
+                                button-submit
+                            ) Cập nhật
+                table(
+                    class = "table table-hover table-sm"
+                    table-permission
+                )
+                    thead 
+                        tr 
+                            th Tính năng
+                            each item in records 
+                                th(class="text-center") #{item.title} 
+                            
+                    tbody
+                        tr(data-name="id" class="d-none")
+                            td 
+                            each item in records 
+                                td(class="text-center")
+                                    input(type="text" value=item.id) 
+                        tr 
+                            td(colspan="4")
+                                b Danh mục sản phẩm 
+                        tr(data-name="products-category-view")
+                            td Xem
+                            each item in records 
+                                td(class="text-center")
+                                    input(type="checkbox")
+                            
+                        tr(data-name="products-category-create")
+                            td Thêm mới 
+                            each item in records 
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products-category-edit")
+                            td Sửa 
+                            each item in records 
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products-category-delete")
+                            td Xóa
+                            each item in records 
+                                td(class="text-center")
+                                    input(type="checkbox")                                
+
+        form(
+            id="form-change-permission"
+            method="POST"
+            action =`${prefixAdmin}/roles/permission?_method=PATCH`
+
+        )
+            div(class="form-group d-none")
+                input(
+                    type="text"
+                    class="form-group"
+                    name="permission"
+                )   
+        
+        script(src="/admin/js/roles.js") 
