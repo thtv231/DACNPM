@@ -1,7 +1,9 @@
 
 const mongoose = require("mongoose")
 const generate = require("../helpers/generate")
-mongoose.plugin(slug)
+
+
+
 const accountSchema = new mongoose.Schema({
     fullName: String,
     email: String,
@@ -12,6 +14,7 @@ const accountSchema = new mongoose.Schema({
        default: generate.generateRandomString(20) 
     },
     phone : String,
+    role_id:String,
     avatar: String,
     status: String,
     deleted: {
