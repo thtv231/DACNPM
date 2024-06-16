@@ -47,7 +47,8 @@ module.exports.create =async (req, res) => {
 
 module.exports.createPost =async (req, res) => {
 
-    req.body.password = md5("req.body.password")
+    req.body.password = md5(req.body.password)
+    
 
     const emailExits = await Account.findOne({
         deleted:false,
@@ -62,7 +63,7 @@ module.exports.createPost =async (req, res) => {
         const record =new Account(req.body)
         
         await record.save()
-        req.flash("success","Tài khoản đã được tạo thành công")
+        //req.flash("success","Tài khoản đã được tạo thành công")
         
         res.redirect(`${systermConfig.prefixAdmin}/accounts`)
     }
