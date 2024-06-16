@@ -3,9 +3,18 @@ const systermConfig=require("../../config/systerm")
 const md5 = require('md5')
 module.exports.login =(req, res) => {
     
-    res.render("admin/pages/auth/login",{
-        pageTitle: "Đăng nhập"
-    }) 
+    if(req.cookies.token){
+        res.redirect(`${systermConfig.prefixAdmin}/dashboard`)
+    }else{
+
+        res.render("admin/pages/auth/login",{
+            pageTitle: "Đăng nhập"
+        }) 
+    }
+    
+
+    
+    
 }
 
 module.exports.loginPost = async (req, res) => {
@@ -37,7 +46,7 @@ module.exports.loginPost = async (req, res) => {
     }
 
     
-    //req.flash("success","Đăng nhập thành công")
+    req.flash("success","Đăng nhập thành công")
     res.cookie("token",user.token)
     res.redirect(`${systermConfig.prefixAdmin}/dashboard`)
 }
