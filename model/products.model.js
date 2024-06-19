@@ -33,6 +33,13 @@ const productsSchema = new mongoose.Schema({
    
     }
     ,
+    updatedBy :[
+        {
+            account_id:String,
+            updatedAt: Date,
+   
+        }
+    ],
     deleted: {
         type: Boolean,
         default: false

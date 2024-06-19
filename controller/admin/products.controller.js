@@ -86,6 +86,19 @@ module.exports.prodcuts = async (req, res) => {
         if(user){
             product.fullName = user.fullName
         }
+        const updateBy = product.updatedBy[product.updatedBy.length -1]
+        if(updateBy){
+
+            const userUpdate = await Account.findOne({
+                _id:updateBy.account_id 
+            })
+            if(userUpdate){
+    
+                product.userUpdate = userUpdate.fullName
+                
+                product.timeUpdate  = updateBy.updatedAt
+            }
+        }
     }
     res.render("admin/pages/products/index",{
         products : products,
@@ -102,24 +115,48 @@ module.exports.prodcuts = async (req, res) => {
 
 module.exports.changeStatus = async(req,res)=>{
     
+    const updated = {
+        account_id : res.locals.user.id,
+        updatedAt: new Date()
+    }
+    
     const status = req.params.status
     const id = req.params.id
-    await Products.updateOne({_id:id},{status:status})
+    await Products.updateOne({_id:id},{
+        status:status,
+        ... req.body,
+        $push : {updatedBy:updated}
+    
+    })
     
     req.flash("success", "Cập nhật trạng thái thành công")
     res.redirect("back")
 }
 
 module.exports.changeMultiStatus =async (req,res) =>{
+    const updated = {
+        account_id : res.locals.user.id,
+        updatedAt: new Date()
+    }
+    
     const type = req.body.type
     const ids = req.body.ids.split(", ")
     switch (type) {
         case "active":
-            await Products.updateMany({_id:{$in:ids}},{status:type})
+            await Products.updateMany({_id:{$in:ids}},{
+                status:type,
+                ... req.body,
+                $push : {updatedBy:updated}
+            })
             req.flash("success", `Cập nhật trạng thái ${type} ${ids.length} sản phẩm`)
             break;
         case "inactive":
-            await Products.updateMany({_id:{$in:ids}},{status:type})
+            await Products.updateMany({_id:{$in:ids}},{
+                status:type,
+                ... req.body,
+                $push : {updatedBy:updated}
+            
+            })
             req.flash("success", `Cập nhật trạng thái ${type} ${ids.length} sản phẩm`)
             
             
@@ -130,7 +167,9 @@ module.exports.changeMultiStatus =async (req,res) =>{
                     deletedBy:{
                         account_id: res.locals.user.id,
                         deletedAt: new Date()
-                    }
+                    },
+                    ... req.body,
+                    $push : {updatedBy:updated}
                     
                 })
                 req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`)
@@ -141,7 +180,12 @@ module.exports.changeMultiStatus =async (req,res) =>{
                 for(const item of ids){
                     let [id,position] =item.split("-")
                     position= parseInt(position)
-                    await Products.updateOne({_id:id},{position:position})
+                    await Products.updateOne({_id:id},{
+                        position:position,
+                        ... req.body,
+                        $push : {updatedBy:updated}
+                    
+                    })
                 }
                 req.flash("success", `Đã thay đổi vị trí  ${ids.length} sản phẩm`)
 
@@ -293,8 +337,19 @@ module.exports.editPatch =async  (req, res) => {
 
     
     try {
+        const updated = {
+            account_id : res.locals.user.id,
+            updatedAt: new Date()
+        }
+
         
-        await Products.updateOne({_id:req.params.id},req.body)
+        await Products.updateOne({_id:req.params.id},
+            {
+
+                ... req.body,
+                $push : {updatedBy:updated}
+            }
+        )
         req.flash("success",`Cập nhật sản phẩm thành công`)
     } catch (error) {
         req.flash("error",`Cập nhật sản phẩm thất bại`)

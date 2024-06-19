@@ -71,6 +71,7 @@ block main
                             th Vị trí
                             th Trạng thái
                             th Người tạo
+                            th Cập nhật
                             th Hành động 
 
                     tbody 
@@ -120,10 +121,14 @@ block main
                                             
                                             ) Dừng hoạt động
                                     
-                                    
+                                //- người tạo    
                                 td 
                                     p #{item.fullName}    
                                     +formatDateTime(item.createdBy.createAt)
+                                //- cập nhật
+                                td 
+                                    p #{item.userUpdate}    
+                                    +formatDateTime(item.timeUpdate)    
                                 td 
                                     a(
                                         class="btn btn-secondary btn-sm"
