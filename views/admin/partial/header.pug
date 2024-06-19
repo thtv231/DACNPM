@@ -1,11 +1,19 @@
 header.header 
     .container-fluid 
         .row.align-items-center 
-            .col-3
+            .col-9
                 .inner-logo 
                     a(href="/admin/dashboard") ADMIN 
 
-            .col-9
+            .col-1 
+            .col-1 
+                div(class="text-right")
+                    a(
+                        
+                        class="btn btn-success btn-sm"
+                    )   #{role.title}
+            
+            .col-1
                 div(class="text-right")
                     a(
                         href=`${prefixAdmin}/auth/logout`

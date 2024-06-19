@@ -1,5 +1,6 @@
 const Products = require("../../model/products.model.js")
 const ProductsCategory = require("../../model/products-category.model.js")
+const Account = require("../../model/acounts.model.js")
 const filterStatusHelper = require("../../helpers/filterStatus.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
@@ -62,6 +63,9 @@ module.exports.prodcuts = async (req, res) => {
     }
 
     //sort end
+
+   
+
     
     
 
@@ -73,6 +77,16 @@ module.exports.prodcuts = async (req, res) => {
    
     
     //console.log(prodcuts)
+
+    for (const product of products) {
+        const user=  await Account.findOne({
+            _id:product.createdBy.account_id 
+        })
+        
+        if(user){
+            product.fullName = user.fullName
+        }
+    }
     res.render("admin/pages/products/index",{
         products : products,
         filterStatus:filterStatus,
@@ -110,10 +124,14 @@ module.exports.changeMultiStatus =async (req,res) =>{
             
             
             break; 
-        case "delete":
+        case "delete-all":
                 await Products.updateMany({_id:{$in:ids}},{
                     deleted:true,
-                    deletedAt:new Date()
+                    deletedBy:{
+                        account_id: res.locals.user.id,
+                        deletedAt: new Date()
+                    }
+                    
                 })
                 req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`)
 
@@ -148,11 +166,19 @@ module.exports.deleteItem = async (req,res)=>{
     //await Products.deleteOne({_id:id})
     // xóa mềm cập nhật lại trạng thái deleted của bản ghi băng true
     try {
+
         
-        await Products.updateOne({_id:id},{
-            deleted:true,
-            deletedAt:new Date()
-        })
+        
+        await Products.updateOne(
+            {_id:id},
+            {
+                deleted:true,
+                deletedBy:{
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date()
+                }
+            }
+        )
         req.flash("success","Xóa sản phẩm thành công")
     } catch (error) {
         req.flash("error","Xóa sản phẩm thất bại") 
@@ -205,9 +231,15 @@ module.exports.createPost = async (req, res) => {
 
     try {
         
+
+        req.body.createdBy = {
+            account_id : res.locals.user.id
+        }
+        
         const product = new Products(req.body)
         await product.save()
         req.flash("success",`Tạo sản phẩm thành công`)
+        
 
     } catch (error) {
         req.flash("error",`Tạo sản phẩm thất bại`)

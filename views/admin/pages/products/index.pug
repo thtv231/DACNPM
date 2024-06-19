@@ -4,6 +4,7 @@ include ../../mixins/form-search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/alert.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/moment.pug
 block main 
     if(role.permissions.includes("products-view")) 
 
@@ -69,6 +70,7 @@ block main
                             th Giá
                             th Vị trí
                             th Trạng thái
+                            th Người tạo
                             th Hành động 
 
                     tbody 
@@ -120,6 +122,9 @@ block main
                                     
                                     
                                 td 
+                                    p #{item.fullName}    
+                                    +formatDateTime(item.createdBy.createAt)
+                                td 
                                     a(
                                         class="btn btn-secondary btn-sm"
                                         href=`${prefixAdmin}/products/detail/${item.id}`
@@ -152,6 +157,7 @@ block main
 
 
     script(src="/admin/js/products.js")      
+    script(src="/admin/js/script.js")      
 
 
 

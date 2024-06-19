@@ -2,7 +2,8 @@ extends ../../layout/default.pug
 include ../../mixins/alert.pug
 
 block main
-    if(role.permissions.includes("role-permission")) 
+    
+    
         +alert(3000)
         h1(class="mb-4") #{pageTitle}
         if(records)

@@ -1,7 +1,7 @@
 extends ../../layout/default.pug
 
 block main
-    if(role.permissions.includes("role-view")) 
+     
         h1(class="mb-4") #{pageTitle}
         .card.mb-3 
             .card-header Danh sách 
@@ -9,7 +9,7 @@ block main
                 .row 
                     .col-8 
                     .col-4.text-right 
-                        if(role.permissions.includes("role-create")) 
+                         
                             a(
                                 href=`${prefixAdmin}/roles/create`
                                 class="btn btn-outline-success"   
@@ -39,12 +39,12 @@ block main
                                             href=`/${prefixAdmin}/roles/detail/${item.id}`
 
                                         ) Chi tiết
-                                        if(role.permissions.includes("role-edit")) 
+                                        
                                             a(
                                                 class="btn btn-warning btn-sm"
                                                 href=`/${prefixAdmin}/roles/edit/${item.id}`
                                             ) Sửa
-                                        if(role.permissions.includes("role-delete")) 
+                                         
                                             a(
                                                 class="btn btn-danger btn-sm"
                                                 href=`/${prefixAdmin}/roles/delete/${item.id}`

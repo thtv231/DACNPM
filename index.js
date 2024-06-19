@@ -7,6 +7,7 @@ const flash = require("express-flash")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const methodOverride = require('method-override')
+const moment = require("moment")
 const bodyParser = require('body-parser')
 
 
@@ -35,6 +36,7 @@ app.use('/tinymce',
 
 const systermConfig = require("./config/systerm")
 app.locals.prefixAdmin = systermConfig.prefixAdmin
+app.locals.moment = moment
 
 //router
 router(app)
