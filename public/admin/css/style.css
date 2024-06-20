@@ -38,6 +38,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+
 }
 
 .sider .inner-menu ul li a {
@@ -45,6 +46,7 @@
     display: block;
     padding: 6px 10px;
     border-bottom: 1px solid #515151;
+    text-decoration: none;
 }
 
 [show-alert]{
