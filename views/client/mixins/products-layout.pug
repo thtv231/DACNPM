@@ -1,0 +1,5 @@
+include ../mixins/item-layout.pug
+
+mixin products-grid(products)
+    each item  in products
+        +item-layout(item)
