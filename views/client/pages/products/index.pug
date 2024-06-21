@@ -6,34 +6,7 @@ block main
     .container.my-3 
         .row 
             .col-12 
-                +box-head("Danh sách sản phẩm")
-        .card.mb-3 
-            .card-header Bộ lọc và tìm kiếm 
-            .card-body
-                .row
-                    .col-6
-                        for item of filterStatus 
-                            button(
-                                class= `btn btn-sm ml-l btn-outline-success ${item.class} `
-                                btn-status=item.status 
-                            ) #{item.name}
-                    .col-6 
-                        form(id="form-search")
-                            .input-group 
-                                input(
-                                    type="text"
-                                    placeholder ="Nhập từ khóa"
-                                    name = "keyword"
-                                    class = "form-control"
-                                    value = keyword
-
-                                )
-                                .input-group-append 
-                                    button(
-                                        class = "btn btn-success"
-                                        type = "submit"
-                                    ) Tìm    
-               
+                +box-head(pageTitle)
         .row
             +products-grid(products)
     script(src="/client/script.js") 

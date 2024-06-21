@@ -1,6 +1,8 @@
 
 const Products = require("../../model/products.model")
+const ProductsCategory = require("../../model/products-category.model");
 
+const productCategory = require("../../helpers/products-category")
 module.exports.prodcuts = async (req, res) => {
     
     const filterStatus = [
@@ -83,4 +85,36 @@ module.exports.detail =async (req,res)=>{
         res.redirect("/products")
     }
     
+}
+
+module.exports.category = async (req,res)=>{
+    const category = await ProductsCategory.findOne({
+        slug: req.params.slugCategory,
+        deleted:false
+
+    })
+
+
+
+    const listCategory = await productCategory.getSubCategory(category.id)
+
+    const listCategoryId = listCategory.map(item => item.id)
+    const products = await Products.find({
+        products_category_id: {$in:[category.id,...listCategoryId]},
+        deleted:false
+    }).sort({position:"desc"})
+
+    //console.log(products)
+
+    products.forEach(item => {
+        item.priceNew = (item.price * (100 - item.discountPercentage) / 100).toFixed(0)
+    })
+    res.render("client/pages/products/index",
+        {
+            pageTitle: "Danh sách sản phẩm",
+            products: products
+            
+           
+        }
+    )
 }
