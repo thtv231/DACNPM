@@ -2,7 +2,6 @@ extends ../../layout/default.pug
 block main 
     if(product.title)
         h1(class="mb-4") #{product.title}
-
     if(product.price)
         div(class="mb-4") Giá: <b>#{product.price}</b>
     if(product.discountPercentage)
@@ -24,7 +23,6 @@ block main
             a.btn.btn-danger() Dừng hoạt động 
     if(product.position)
         div(class="mb-4") Vị trí <b>#{product.position}</b>
-
     if(product.description)
         div(class="mb-4")  !{product.description}  
     a(

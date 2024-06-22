@@ -1,4 +1,4 @@
-.header{
+/* .header{
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
@@ -21,7 +21,54 @@
 
 .header .inner-menu >ul >li {
     margin-left: 20px;
+} */
+/* Định dạng chung cho header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Để logo và menu ở hai đầu */
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px; /* Điều chỉnh padding */
+    background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ */
 }
+
+/* Định dạng cho logo */
+.header .inner-logo img {
+    max-height: 50px;
+    max-width: 100%;
+}
+
+/* Định dạng cho menu */
+.header .inner-menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px; /* Khoảng cách giữa các menu item */
+}
+
+/* Định dạng cho các mục menu */
+.header .inner-menu > ul > li {
+    margin: 0; /* Xóa margin trái cũ */
+}
+
+.header .inner-menu > ul > li a {
+    text-decoration: none;
+    color: #333; /* Màu chữ */
+    font-size: 16px; /* Kích thước chữ */
+    padding: 10px; /* Padding để tạo khoảng cách xung quanh chữ */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.header .inner-menu > ul > li a:hover {
+    color: #007bff; /* Màu chữ khi hover */
+    background-color: #e9ecef; /* Màu nền khi hover */
+    border-radius: 5px; /* Bo tròn góc */
+}
+
 
 .footer{
     background: #333;
@@ -164,3 +211,264 @@
 .sub-menu ul li:hover > ul{
     display: block;
 }
+
+/* .product-detail .inner-thumb img {
+    width: 100%;
+    height: auto;
+}
+
+
+.product-detail .inner-title{
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-category {
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-price-new{
+    color: green;
+    font-weight:600 ;
+    font-size: 20px;
+    text-decoration: line-through;
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-price-old{
+    color: red;
+    font-weight:600 ;
+    font-size: 20px;
+    text-decoration: line-through;
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-percent {
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-percent span {
+    color: #fff;
+    background: red;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 8px;
+}
+
+.product-detail .inner-stock {
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-stock span {
+    color: #fff;
+    background: green;
+    font-weight: 600;
+    margin-bottom: 10px;
+} */
+
+.product-detail {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.product-detail .inner-thumb img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-detail .inner-thumb img:hover {
+    transform: scale(1.05);
+}
+
+.product-detail .inner-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+.product-detail .inner-category {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #555;
+}
+
+.product-detail .inner-category a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.product-detail .inner-category a:hover {
+    color: #0056b3;
+}
+
+.product-detail .inner-price-new {
+    color: #28a745;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-price-old {
+    color: red;
+    font-weight: 400;
+    font-size: 20px;
+    text-decoration: line-through;
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-percent {
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-percent span {
+    color: #fff;
+    background: #dc3545;
+    font-weight: 700;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.product-detail .inner-stock {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.product-detail .inner-stock span {
+    color: #fff;
+    background: #28a745;
+    font-weight: 700;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+
+.product-detail form {
+    display: grid;
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+    max-width: 400px;
+}
+
+.product-detail form .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    grid-column: 1 / -1; /* Đảm bảo input chiếm toàn bộ chiều rộng */
+}
+
+.product-detail form .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+.product-detail form .btn {
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    grid-column: 1 / -1; /* Đảm bảo button chiếm toàn bộ chiều rộng */
+}
+
+.product-detail form .btn-success {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+}
+
+.product-detail form .btn-success:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+}
+
+
+.product-detail .inner-desc {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+
+/* Định dạng cho phần header */
+header.header .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+header.header .form-coltrol {
+    width: 80%; /* Tăng kích thước chiều rộng của input */
+    border-radius: 20px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    font-size: 16px;
+    margin-right: 10px; /* Khoảng cách giữa input và button */
+}
+
+header.header .btn-primary {
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+header.header .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+
+
+[show-alert]{
+    
+    top:70px;
+    right:15px;
+    z-index:9999;
+
+}
+[show-alert].alert-hidden{
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode:both ;
+
+}
+@keyframes alert-hidden{
+    from{
+        right:15px
+
+    }to{
+        right: -100%;
+        display: none;
+    }
+}
+
+[show-alert][close-alert]{
+    background: #ffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+
+
+
