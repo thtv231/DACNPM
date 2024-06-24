@@ -4,6 +4,7 @@ const controller = require("../../controller/client/checkout.controller")
 
 router.get("/",controller.index)
 router.post("/order",controller.order)
+router.get("/success/:id",controller.success)
 
 
 
