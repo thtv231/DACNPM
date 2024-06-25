@@ -2,11 +2,11 @@ include ../mixins/sub-menu.pug
 header.header 
     .container 
         .row.align-items-center 
-            .col-3 
+            .col-2 
                 .inner-logo 
                     a(href="/")
                         img(src="/images/logo5.png",alt="logo")
-            .col-5 
+            .col-4 
                 form(
                     action ="/search"
                     method="GET"
@@ -23,7 +23,7 @@ header.header
                             type="submit"
                             class="btn btn-primary"
                         ) Tìm           
-            .col-4 
+            .col-6 
                 .inner-menu 
                     ul      
                         li 
@@ -33,7 +33,13 @@ header.header
                             a(href="/products" style="text-decoration: none;") Sản phẩm
                             +sub-menu(layoutProductsCategory,pathProduct)
                         li 
-                            a(href="/cart") Giỏ hàng (#{cart?cart.totalQuantity:"0"} ) 
-                        li 
-                            a(href="/user/register" style="text-decoration: none;") Đăng ký       
+                            a(href="/cart") Giỏ hàng (#{cart?cart.totalQuantity:"0"} )
+                        if(user)
+                            li 
+                                a(href="/user/logout" style="text-decoration: none;") Đăng xuất
+                        else 
+                            li 
+                                a(href="/user/register" style="text-decoration: none;") Đăng ký 
+                            li 
+                                a(href="/user/login" style="text-decoration: none;") Đăng nhập        
 
