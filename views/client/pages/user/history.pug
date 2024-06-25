@@ -1,0 +1,48 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/products-layout.pug
+include ../../mixins/alert.pug
+
+
+block main 
+    +alert(3000)
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Đơn mua của bạn")
+
+        if(orders.length >0)
+            each order,index in orders
+                h3(class="mb-2") Mã đơn hàng : #{order.id} 
+                .row
+                    .col-12
+                        if(order.products.length > 0) 
+                            
+                            table(class="table table-bordered")
+                                thead 
+                                    tr 
+                                        th STT
+                                        th Ảnh
+                                        th Tên
+                                        th Giá
+                                        th Số lượng
+                                        th Tổng tiền
+                                        th Hành động
+                                tbody
+                                    if(order.products.length > 0)
+                                        each item,index in order.products 
+                                            tr 
+                                                td #{index +1}
+                                                td
+                                                    img(src=item.productInfo.thumbnail,alt=item.productInfo.title width="80px")
+                                                td  #{item.productInfo.title}
+                                                td  #{item.priceNew}
+                                                td  #{item.quantity}
+                                                td  #{item.totalPrice} $
+                                                td 
+                                                     a(
+                                                        href = `/products/detail/${item.productInfo.slug}`
+                                                        class="btn btn-success"
+                                                    ) Đặt lại
+                            if(order.products.length > 0)
+                                h3(class="text-right") Tổng đơn hàng : #{order.totalPrice} $                            

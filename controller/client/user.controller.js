@@ -1,4 +1,8 @@
+const Order = require("../../model/orders.model")
+const Product = require("../../model/products.model")
 const User = require("../../model/users.model")
+const productHelper = require("../../helpers/products")
+
 const md5 = require("md5")
 module.exports.register =async (req,res)=>{
     
@@ -86,3 +90,42 @@ module.exports.logout = (req,res)=>{
  
     res.redirect("/")
  }
+
+ module.exports.history =async (req,res)=>{
+    
+    const orders = await Order.find({
+        
+        user_id: req.cookies.tokenUser
+    })
+
+   // console.log(orders)
+    for (const order of orders) {
+        
+        for (const product of order.products) {
+            const productInfo = await Product.findOne({
+                _id: product.product_id
+            }).select("title thumbnail slug")
+        
+            product.productInfo = productInfo
+            product.priceNew = productHelper.priceNewProduct(product)
+            product.totalPrice = product.priceNew*product.quantity
+        }
+
+        order.totalPrice = order.products.reduce((sum,item)=>sum+item.totalPrice,0)
+
+
+    }
+
+    
+
+    
+    res.render("client/pages/user/history",
+        {
+            pageTitle: "Đơn mua",
+            orders: orders
+           
+        }
+    )
+}
+
+

@@ -72,6 +72,10 @@ module.exports.order =async (req,res)=>{
         products :products
     }
 
+    if(res.locals.user){
+        objOrder.user_id = res.locals.user.tokenUser
+    }
+
     await Cart.updateOne({
         _id: cartId
     },{products: []})
