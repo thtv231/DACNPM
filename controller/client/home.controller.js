@@ -24,12 +24,9 @@ module.exports.index = async (req, res) => {
         status: "active",
     }).sort({position:"desc"}).limit(6)
 
-    res.render("client/pages/home/index",
-        {
-            products: products,
-            productsNew:productsNew
-           
-        }
-    )
+    res.json({
+        products: products,
+        productsNew:productsNew
+    })
 }
 

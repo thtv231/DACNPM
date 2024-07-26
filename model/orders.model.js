@@ -20,8 +20,11 @@ const orderSchema = new mongoose.Schema({
             quantity: Number
         }
         
-    ]
-   
+    ],
+    shipping: Number,
+    payment: Number,
+    status: String ,
+    payment_type: String,
     
 },{timestamps:true})
 

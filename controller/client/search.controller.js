@@ -23,13 +23,18 @@ module.exports.index = async (req, res) => {
         
    }
    
-    res.render("client/pages/search/index",
-        {
-            pageTitle: "Kết quả tìm kiếm",
-            keyword:keyword,
-            products:newProducts
+    // res.render("client/pages/search/index",
+    //     {
+    //         pageTitle: "Kết quả tìm kiếm",
+    //         keyword:keyword,
+    //         products:newProducts
 
            
-        }
-    )
+    //     }
+    // )
+    res.json({
+        pageTitle: "Kết quả tìm kiếm",
+        keyword:keyword,
+        products:newProducts
+    })
 }
